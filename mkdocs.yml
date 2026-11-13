@@ -1,0 +1,16 @@
+site_name: Joi (Джой)
+repo_url: https://github.com/EugeneCrown/Joi
+theme:
+  name: material
+  language: ru
+nav:
+  - Главная: index.md
+  - Архитектура: architecture/overview.md
+  - Руководства:
+      - Деплой: guides/deployment.md
+      - Память: guides/memory-setup.md
+      - Голос: guides/voice-pipeline.md
+  - Справочники:
+      - Нейминг: reference/naming.md
+      - Промпты: reference/prompts.md
+  - Изменения: changelog.md

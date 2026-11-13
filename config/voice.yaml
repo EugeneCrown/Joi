@@ -1,0 +1,21 @@
+vad:
+  engine: "silero"
+  threshold: 0.5
+
+stt:
+  engine: "faster-whisper"
+  model: "base-int8"
+  language: "ru"
+
+tts:
+  engine: "piper"
+  voice: "ru_RU-ruslan-medium"
+  name_pronunciation:
+    "Joi": "Джой"
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  archive_codec: "opus"
+
+wake_words: ["джой", "джои", "эй джой"]

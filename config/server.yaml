@@ -1,0 +1,53 @@
+agent_config: "config/agent.yaml"
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  log_level: "INFO"
+
+storage:
+  root_path: "/mnt/joi_memory"
+  tiers:
+    hot:
+      path: "/mnt/joi_memory/hot"
+      device: "nvme"
+      max_size_gb: 50
+      retention_days: 30
+    warm:
+      path: "/mnt/joi_memory/warm"
+      device: "sata_ssd"
+      max_size_gb: 500
+      retention_days: 730
+    cold:
+      path: "/mnt/joi_memory/cold"
+      device: "hdd"
+      max_size_gb: 2000
+      retention_days: -1
+  index:
+    backend: "lancedb"
+    path: "/mnt/joi_memory/hot/index"
+    embedding_dim: 384
+  lifecycle:
+    migration_cron: "0 3 * * *"
+    never_delete: true
+  privacy:
+    permissions: "0700"
+    sync_to_git: false
+
+models:
+  root_path: "/opt/joi_models"
+  whisper: "base-int8"
+  embedding: "all-MiniLM-L6-v2"
+  tts: "ru_RU-ruslan-medium"
+  local_llm: "qwen2.5:1.5b"
+
+cloud:
+  proxyapi_endpoint: "https://api.proxyapi.ru/v1"
+  timeout_seconds: 30
+  fallback_to_local: true
+
+prompts:
+  dir: "config/prompts"
+  cache_enabled: true
+  hot_reload: false

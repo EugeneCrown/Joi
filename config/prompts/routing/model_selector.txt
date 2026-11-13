@@ -1,0 +1,18 @@
+Выбери модель для обработки запроса.
+
+Модели:
+- LOCAL_FAST: локальная, быстрая
+- LOCAL_MEDIUM: локальная среднего размера
+- CLOUD_STANDARD: proxyapi.ru, баланс
+- CLOUD_PREMIUM: proxyapi.ru, топовая
+
+Правила:
+1. Сеть недоступна → LOCAL_FAST
+2. simple_command, iot_control → LOCAL_FAST
+3. coding, reasoning → CLOUD_PREMIUM
+4. creative, factual → CLOUD_STANDARD
+
+Категория: {{ category }}
+Сеть: {{ network_available }}
+
+JSON: {"model": "МОДЕЛЬ", "reason": "обоснование"}

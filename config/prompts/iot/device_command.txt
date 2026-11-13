@@ -1,0 +1,15 @@
+Пользователь дал команду для IoT-устройства. Верни JSON.
+
+Действия:
+- "take_photo": сделать фото
+- "start_recording": начать запись
+- "stop_recording": остановить запись
+- "show_text": вывести текст (params.text обязателен)
+- "none": действие не требуется
+
+Формат:
+{"action": "действие", "params": {}, "confirmation_message": "фраза"}
+
+Команда: "{{ user_query }}"
+
+JSON:

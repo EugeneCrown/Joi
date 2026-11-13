@@ -1,0 +1,13 @@
+Пользователь отреагировал на твой ответ. Определи тип реакции.
+
+Типы:
+- "positive": доволен
+- "negative": недоволен
+- "correction": привёл правильную версию
+- "neutral": обычное продолжение
+
+Твой ответ: "{{ assistant_response }}"
+Реакция: "{{ user_feedback }}"
+
+JSON:
+{"reaction": "тип", "corrected_response": null, "lesson": "что запомнить"}

@@ -1,0 +1,17 @@
+Определи категорию запроса пользователя.
+
+Категории:
+- simple_command: простые команды
+- creative: творческие задачи
+- coding: программирование
+- reasoning: сложные рассуждения
+- iot_control: управление устройством
+- memory_query: вопросы о прошлом
+- factual: поиск фактов
+
+Верни СТРОГО JSON:
+{"category": "категория", "requires_cloud": true, "confidence": 0.0}
+
+Запрос: "{{ user_query }}"
+
+JSON:
