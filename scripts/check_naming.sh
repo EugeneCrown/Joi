@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-LEGACY='klava|Klava|KLAVA|Клава|Клавы|Клаве|Клаву|Клавой'
+LEGACY='joi|Joi|JOI|Joi|Joi|Joi|Joi|Joi'
 
 if grep -rInE "$LEGACY" \
     --exclude-dir=.git --exclude-dir=.venv --exclude-dir=venv \

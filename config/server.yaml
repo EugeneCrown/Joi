@@ -7,26 +7,26 @@ server:
   log_level: "INFO"
 
 storage:
-  root_path: "/mnt/joi_memory"
+  root_path: "/memory"
   tiers:
     hot:
-      path: "/mnt/joi_memory/hot"
+      path: "/memory/hot"
       device: "nvme"
       max_size_gb: 50
       retention_days: 30
     warm:
-      path: "/mnt/joi_memory/warm"
+      path: "/memory/warm"
       device: "sata_ssd"
       max_size_gb: 500
       retention_days: 730
     cold:
-      path: "/mnt/joi_memory/cold"
+      path: "/memory/cold"
       device: "hdd"
       max_size_gb: 2000
       retention_days: -1
   index:
     backend: "lancedb"
-    path: "/mnt/joi_memory/hot/index"
+    path: "/memory/hot/index"
     embedding_dim: 384
   lifecycle:
     migration_cron: "0 3 * * *"
@@ -40,7 +40,7 @@ models:
   whisper: "base-int8"
   embedding: "all-MiniLM-L6-v2"
   tts: "ru_RU-ruslan-medium"
-  local_llm: "qwen2.5:1.5b"
+  local_llm: "qwen2.5:1.5b" # Оптимально для 8GB RAM и CPU # Оптимально для 8GB RAM и CPU # Оптимально для 8GB RAM и CPU
 
 cloud:
   proxyapi_endpoint: "https://api.proxyapi.ru/v1"
