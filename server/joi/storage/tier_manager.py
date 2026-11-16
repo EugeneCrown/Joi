@@ -1,4 +1,5 @@
 """Многоуровневая память Joi: Hot / Warm / Cold."""
+
 from __future__ import annotations
 
 import logging
@@ -20,7 +21,7 @@ class TierConfig:
 
     @property
     def max_size_bytes(self) -> int:
-        return self.max_size_gb * (1024 ** 3)
+        return self.max_size_gb * (1024**3)
 
 
 class TierManager:
@@ -31,7 +32,7 @@ class TierManager:
         self._ensure_dirs()
 
     @classmethod
-    def from_config(cls, storage_cfg: dict) -> "TierManager":
+    def from_config(cls, storage_cfg: dict) -> TierManager:
         tiers = [
             TierConfig(
                 name=name,
@@ -80,9 +81,11 @@ class TierManager:
             used = sum(f.stat().st_size for f in tier.path.rglob("*") if f.is_file())
             usage[tier.name] = {
                 "path": str(tier.path),
-                "used_gb": round(used / (1024 ** 3), 2),
+                "used_gb": round(used / (1024**3), 2),
                 "max_gb": tier.max_size_gb,
-                "percent": round(used / tier.max_size_bytes * 100, 1) if tier.max_size_bytes else 0.0,
+                "percent": round(used / tier.max_size_bytes * 100, 1)
+                if tier.max_size_bytes
+                else 0.0,
             }
         return usage
 
@@ -103,9 +106,11 @@ class TierManager:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     base = Path("/tmp/joi_tiers_demo")
-    tm = TierManager([
-        TierConfig("hot", base / "hot", 1, 1),
-        TierConfig("warm", base / "warm", 5, 30),
-        TierConfig("cold", base / "cold", 10, -1),
-    ])
+    tm = TierManager(
+        [
+            TierConfig("hot", base / "hot", 1, 1),
+            TierConfig("warm", base / "warm", 5, 30),
+            TierConfig("cold", base / "cold", 10, -1),
+        ]
+    )
     print(tm.get_disk_usage())

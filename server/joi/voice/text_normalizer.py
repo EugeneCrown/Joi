@@ -1,4 +1,5 @@
 """Подготовка текста ответа Joi к синтезу речи (TTS)."""
+
 from __future__ import annotations
 
 import re
@@ -6,13 +7,13 @@ import re
 from joi.core.branding import IDENTITY
 
 _MD_PATTERNS = (
-    (re.compile(r"```.*?```", re.S), " "),
+    (re.compile(r"```.*?```", re.DOTALL), " "),
     (re.compile(r"`([^`]+)`"), r"\1"),
     (re.compile(r"\*\*([^*]+)\*\*"), r"\1"),
     (re.compile(r"\*([^*]+)\*"), r"\1"),
-    (re.compile(r"^\s{0,3}#{1,6}\s*", re.M), ""),
+    (re.compile(r"^\s{0,3}#{1,6}\s*", re.MULTILINE), ""),
     (re.compile(r"!?\[([^\]]*)\]\([^)]*\)"), r"\1"),
-    (re.compile(r"^\s*[-*+]\s+", re.M), ""),
+    (re.compile(r"^\s*[-*+]\s+", re.MULTILINE), ""),
     (re.compile(r"\s+"), " "),
 )
 

@@ -1,4 +1,5 @@
 """Единый источник имени и идентичности ассистента Joi."""
+
 from __future__ import annotations
 
 import logging
@@ -40,6 +41,7 @@ def load_identity(config_path: str | Path | None = None) -> AgentIdentity:
     path = Path(config_path) if config_path else DEFAULT_CONFIG
     try:
         import yaml
+
         raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         agent = raw.get("agent", {})
         user = raw.get("user", {})
@@ -55,7 +57,7 @@ def load_identity(config_path: str | Path | None = None) -> AgentIdentity:
             user_os=user.get("os", "Manjaro Linux (KDE Plasma, X11)"),
             style=agent.get("personality", {}).get("style", AgentIdentity.style),
         )
-    except Exception as exc:
+    except (FileNotFoundError, yaml.YAMLError) as exc:
         logger.warning("Не удалось прочитать %s (%s) — дефолт Joi", path, exc)
         return AgentIdentity()
 

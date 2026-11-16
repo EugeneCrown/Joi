@@ -6,7 +6,7 @@ help:
 VENV := .venv
 
 install: venv
-	$(VENV)/bin/pip install -e "[dev]"
+	$(VENV)/bin/pip install -e ".[dev]"
 	$(VENV)/bin/pre-commit install
 
 
@@ -33,7 +33,7 @@ storage:
 	bash scripts/setup_server_storage.sh
 
 check: naming
-	ruff check server/
+	$(VENV)/bin/ruff check server/
 
 test:
 	pytest

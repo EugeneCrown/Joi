@@ -1,4 +1,5 @@
 """Менеджер промптов Joi: Jinja2 + кэш + автоподстановка идентичности."""
+
 from __future__ import annotations
 
 import logging
@@ -6,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Environment, FileSystemLoader, Template, TemplateError, TemplateNotFound
 
 from joi.core.branding import IDENTITY, AgentIdentity
 
@@ -48,7 +49,7 @@ class PromptManager:
                 key = str(rel.with_suffix(""))
                 try:
                     self._templates[key] = self.env.get_template(str(rel))
-                except Exception as exc:
+                except (TemplateNotFound, TemplateError) as exc:
                     logger.error("Ошибка загрузки промпта %s: %s", key, exc)
 
     def render(self, template_name: str, **kwargs: Any) -> str:
@@ -68,7 +69,7 @@ class PromptManager:
 
         try:
             return self._templates[template_name].render(**context)
-        except Exception as exc:
+        except TemplateError as exc:
             logger.error("Ошибка рендеринга '%s': %s", template_name, exc)
             return self._templates[template_name].render()
 
