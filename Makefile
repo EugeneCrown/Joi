@@ -1,39 +1,39 @@
 .PHONY: help install docs docs-serve naming check test storage brand prompts
 
-help:
+help: ## Show help (list available make targets)
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
 VENV := .venv
 
-install: venv
+install: venv ## Install project dependencies and pre-commit hooks
 	$(VENV)/bin/pip install -e ".[dev]"
 	$(VENV)/bin/pre-commit install
 
 
-venv:
+venv: ## Create virtual environment
 	python -m venv $(VENV)
 	$(VENV)/bin/pip install --upgrade pip
 
-brand:
+brand: ## Show brand identity
 	PYTHONPATH=server python -c "from joi.core.branding import IDENTITY; print(IDENTITY)"
 
-prompts:
+prompts: ## Run prompt manager
 	PYTHONPATH=server python -m joi.core.prompt_manager
 
-naming:
+naming: ## Check naming conventions
 	bash scripts/check_naming.sh
 
-docs:
+docs: ## Generate documentation
 	python scripts/docs/generate_all.py
 
-docs-serve:
+docs-serve: ## Serve documentation locally
 	mkdocs serve --dev-addr 127.0.0.1:8000
 
-storage:
+storage: ## Setup server storage
 	bash scripts/setup_server_storage.sh
 
-check: naming
+check: naming ## Run linters (ruff) on server code
 	$(VENV)/bin/ruff check server/
 
-test:
+test: ## Run unit tests with pytest
 	pytest
