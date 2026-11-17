@@ -32,7 +32,10 @@ docs-serve: ## Serve documentation locally
 storage: ## Setup server storage
 	bash scripts/setup_server_storage.sh
 
-check: naming ## Run linters (ruff) on server code
+check: naming
+
+install-toolchain:
+	@bash scripts/install_toolchain.sh ## Run linters (ruff) on server code
 	$(VENV)/bin/ruff check server/
 
 test: ## Run unit tests with pytest
