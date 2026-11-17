@@ -8,11 +8,11 @@ echo "Обновляем пакетный индекс..."
 sudo apt-get update -y
 
 echo "Устанавливаем необходимые системные пакеты..."
-sudo apt-get install -y python3-pip git build-essential cmake libportaudio2 ffmpeg
+sudo apt-get install -y python3-pip python3-distutils git build-essential cmake libportaudio2 ffmpeg
 
 # Устанавливаем Porcupine (pvporcupine) – библиотека wake‑word
 echo "Устанавливаем pvporcupine..."
-pip3 install --user pvporcupine
+python3 -m pip install --user pvporcupine
 
 # Клонируем и собираем whisper.cpp (для STT)
 if [ ! -d "whisper.cpp" ]; then
