@@ -1,4 +1,4 @@
-.PHONY: help install docs docs-serve naming check test storage brand prompts
+.PHONY: help install docs docs-serve naming check test storage brand prompts deploy-prod
 
 help: ## Show help (list available make targets)
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -43,3 +43,6 @@ setup-voice-server:
 
 test: ## Run unit tests with pytest
 	pytest
+
+deploy-prod: ## Deploy code to production server
+	@bash scripts/push_to_server.sh
