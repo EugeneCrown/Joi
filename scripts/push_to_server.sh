@@ -7,25 +7,29 @@ if ! git remote get-url prod >/dev/null 2>&1; then
   echo "✅ Добавлен git remote 'prod' → ssh://grebenkine@192.168.0.78/home/grebenkine/Joi"
 fi
 
+# Пушим изменения
 echo "🚀 Пушим изменения в продакшн..."
 git push prod main
 
+# Пост‑деплой на сервере
 echo "🔧 Выполняем пост‑деплой на сервере..."
 ssh grebenkine@192.168.0.78 <<'EOF'
   cd /home/grebenkine/Joi
-  # Обновляем зависимости (если виртуальное окружение уже создано)
+  # Обновляем зависимости, если виртуальное окружение уже есть
   if [ -d ".venv" ]; then
     ./.venv/bin/pip install -e ".[dev]"
   fi
-  # Копируем/обновляем systemd‑юнит
-  sudo cp scripts/joi.service /etc/systemd/system/joi.service
+  # Копируем юнит‑файл в /tmp (без sudo)
+  cp scripts/joi.service /tmp/joi.service
+  # Перемещаем в системный каталог и перезагружаем systemd (sudo‑команды, уже разрешённые без пароля)
+  sudo mv /tmp/joi.service /etc/systemd/system/joi.service
   sudo systemctl daemon-reload
   sudo systemctl enable joi.service
-  # Перезапуск (если уже запущен) или старт
+  # Старт/перезапуск сервиса
   if systemctl is-active --quiet joi.service; then
-    sudo systemctl restart joi.service || echo "⚠️ Не удалось перезапустить systemd сервис joi"
+    sudo systemctl restart joi.service || echo "⚠️ Не удалось перезапустить joi.service"
   else
-    sudo systemctl start joi.service || echo "⚠️ Не удалось запустить systemd сервис joi"
+    sudo systemctl start joi.service || echo "⚠️ Не удалось запустить joi.service"
   fi
 EOF
 
