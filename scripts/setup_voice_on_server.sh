@@ -43,7 +43,7 @@ if [ ! -d "piper" ]; then
   git clone https://github.com/rhasspy/piper.git
   cd piper
   echo "Установка требований Piper..."
-  python -m pip install -r requirements.txt
+  if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
   echo "Установка Piper..."
   python -m pip install .
   cd ..
