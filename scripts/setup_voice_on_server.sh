@@ -8,11 +8,22 @@ echo "Обновляем пакетный индекс..."
 sudo apt-get update -y
 
 echo "Устанавливаем необходимые системные пакеты..."
-sudo apt-get install -y python3-pip python3-distutils git build-essential cmake libportaudio2 ffmpeg
+sudo apt-get install -y python3-pip python3-distutils python3.10 python3.10-venv git build-essential cmake libportaudio2 ffmpeg
 
 # Устанавливаем Porcupine (pvporcupine) – библиотека wake‑word
 echo "Устанавливаем pvporcupine..."
-python3 -m pip install --user pvporcupine
+# Создаём виртуальное окружение, если его ещё нет
+VENV_DIR="$HOME/.venv/pv"
+if [ ! -d "$VENV_DIR" ]; then
+echo "Создаю venv в $VENV_DIR ..."
+python3.10 -m venv "$VENV_DIR"
+fi
+# Активируем venv
+source "$VENV_DIR/bin/activate"
+# Обновляем pip, setuptools и wheel внутри venv
+python -m pip install --upgrade pip setuptools wheel
+# Устанавливаем pvporcupine внутри venv
+python -m pip install pvporcupine
 
 # Клонируем и собираем whisper.cpp (для STT)
 if [ ! -d "whisper.cpp" ]; then
@@ -32,9 +43,9 @@ if [ ! -d "piper" ]; then
   git clone https://github.com/rhasspy/piper.git
   cd piper
   echo "Установка требований Piper..."
-  pip3 install --user -r requirements.txt
+  python -m pip install -r requirements.txt
   echo "Установка Piper..."
-  pip3 install --user .
+  python -m pip install .
   cd ..
 else
   echo "Piper уже существует, установка пропущена."
