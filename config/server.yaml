@@ -17,12 +17,12 @@ storage:
     warm:
       path: "/memory/warm"
       device: "sata_ssd"
-      max_size_gb: 500
+      max_size_gb: 200
       retention_days: 730
     cold:
       path: "/memory/cold"
       device: "hdd"
-      max_size_gb: 2000
+      max_size_gb: 40
       retention_days: -1
   index:
     backend: "lancedb"

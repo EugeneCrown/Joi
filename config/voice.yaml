@@ -3,8 +3,8 @@ vad:
   threshold: 0.5
 
 stt:
-  engine: "faster-whisper"
-  model: "base-int8"
+  engine: "whisper.cpp"
+  model: "base"
   language: "ru"
 
 tts:
