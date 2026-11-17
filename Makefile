@@ -35,7 +35,10 @@ storage: ## Setup server storage
 check: naming
 
 install-toolchain:
-	@bash scripts/install_toolchain.sh ## Run linters (ruff) on server code
+	@bash scripts/install_toolchain.sh
+
+setup-voice-server:
+	@bash scripts/setup_voice_on_server.sh ## Run linters (ruff) on server code
 	$(VENV)/bin/ruff check server/
 
 test: ## Run unit tests with pytest
