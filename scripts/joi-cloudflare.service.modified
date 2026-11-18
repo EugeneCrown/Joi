@@ -1,0 +1,15 @@
+[Unit]
+Description=Cloudflare Tunnel for Joi
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/default/joi-cloudflare
+ExecStart=cloudflared tunnel run --token ${CLOUDFLARED_TUNNEL_TOKEN}
+Restart=on-failure
+User=grebenkine
+Group=grebenkine
+Environment="HOME=/home/grebenkine"
+
+[Install]
+WantedBy=multi-user.target
