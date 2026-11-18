@@ -1,0 +1,7 @@
+tunnel: 2a642745-45ca-4422-849d-d368b0a167eb
+credentials-file: ~/.cloudflared/2a642745-45ca-4422-849d-d368b0a167eb.json
+
+ingress:
+  - hostname: joi.zen-link.ru
+    service: http://localhost:8000
+  - service: http_status:404

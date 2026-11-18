@@ -45,4 +45,6 @@ test: ## Run unit tests with pytest
 	pytest
 
 deploy-prod: ## Deploy code to production server
-	@bash scripts/push_to_server.sh
+
+tunnel: ## Запуск Cloudflare Tunnel
+	@bash scripts/start_cloudflare_tunnel.sh

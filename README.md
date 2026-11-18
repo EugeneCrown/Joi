@@ -128,3 +128,20 @@ curl http://192.168.0.78:8000/
 
 Проверка логов:
 ssh grebenkine@192.168.0.78 "journalctl -u joi.service -b"
+
+## Доступ через Cloudflare Tunnel
+
+- Поддомен: `joi.zen-link.ru`.
+- Для публичного доступа к серверу запустите туннель:
+
+```sh
+make tunnel
+```
+
+Требования:
+- Установить утилиту `cloudflared` (см. https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/).
+- В панели Cloudflare создать туннель, указать UUID и загрузить credentials‑файл в `~/.cloudflared/`.
+- Отредактировать `cloudflare/tunnel.yml`, заменив `<YOUR_TUNNEL_UUID>` на полученный UUID.
+- На сервере задать переменную окружения `CLOUDFLARED_TUNNEL_ID` (например, в файле `/etc/default/joi-cloudflare`) со значением того же UUID.
+
+После запуска туннеля запросы к `https://joi.zen-link.ru` будут проксированы на ваш сервер (`http://localhost:8000`).
