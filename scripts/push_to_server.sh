@@ -35,14 +35,10 @@ ssh -t grebenkine@192.168.0.78 <<'EOF'
   sudo systemctl enable joi-cloudflare.service
   sudo mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
   sudo systemctl daemon-reload
-  sudo systemctl start joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
+  sudo systemctl restart joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
 
   # Старт/перезапуск сервиса
-  if systemctl is-active --quiet joi.service; then
-    sudo systemctl restart joi.service || echo "⚠️ Не удалось перезапустить joi.service"
-  else
-    sudo systemctl start joi.service || echo "⚠️ Не удалось запустить joi.service"
-  fi
+  sudo systemctl restart joi.service || echo "⚠️ Не удалось перезапустить joi.service"
 EOF
 
 echo "✅ Деплой завершён"
