@@ -6,9 +6,9 @@ After=network.target
 User=grebenkine
 Group=grebenkine
 WorkingDirectory=/home/grebenkine/Joi
-ExecStart=/home/grebenkine/Joi/.venv/bin/uvicorn joi.main:app --host 0.0.0.0 --port 8000
+Environment=PYTHONPATH=/home/grebenkine/Joi/server
+ExecStart=/home/grebenkine/Joi/.venv/bin/uvicorn joi:app --host 0.0.0.0 --port 8000
 Restart=on-failure
-Environment=PYTHONPATH=server
 
 [Install]
 WantedBy=multi-user.target
