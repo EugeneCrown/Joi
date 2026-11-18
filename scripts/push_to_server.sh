@@ -25,9 +25,11 @@ ssh grebenkine@192.168.0.78 <<'EOF'
   # Копируем юнит‑файлы в /tmp (без sudo)
   cp scripts/joi.service /tmp/joi.service
   cp scripts/joi-cloudflare.service /tmp/joi-cloudflare.service
+  cp scripts/joi-cloudflare.env /tmp/joi-cloudflare.env
 
   # Перемещаем в системный каталог и перезагружаем systemd (sudo‑команды, уже разрешённые без пароля)
   sudo -n mv /tmp/joi.service /etc/systemd/system/joi.service
+  sudo -n mv /tmp/joi-cloudflare.env /etc/default/joi-cloudflare
   sudo -n systemctl daemon-reload
   sudo -n systemctl enable joi.service
   sudo -n systemctl enable joi-cloudflare.service
