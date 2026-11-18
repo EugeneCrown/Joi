@@ -15,8 +15,11 @@ git push prod main
 echo "🔧 Выполняем пост‑деплой на сервере..."
 ssh grebenkine@192.168.0.78 <<'EOF'
   cd /home/grebenkine/Joi
-  # Обновляем зависимости, если виртуальное окружение уже есть
+  # Создаём/обновляем виртуальное окружение и зависимости
   if [ -d ".venv" ]; then
+    ./.venv/bin/pip install -e ".[dev]"
+  else
+    python -m venv .venv
     ./.venv/bin/pip install -e ".[dev]"
   fi
   # Копируем юнит‑файл в /tmp (без sudo)
