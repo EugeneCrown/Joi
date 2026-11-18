@@ -28,20 +28,20 @@ ssh grebenkine@192.168.0.78 <<'EOF'
   cp scripts/joi-cloudflare.env /tmp/joi-cloudflare.env
 
   # Перемещаем в системный каталог и перезагружаем systemd (sudo‑команды, уже разрешённые без пароля)
-  sudo -n mv /tmp/joi.service /etc/systemd/system/joi.service
-  sudo -n mv /tmp/joi-cloudflare.env /etc/default/joi-cloudflare
-  sudo -n systemctl daemon-reload
-  sudo -n systemctl enable joi.service
-  sudo -n systemctl enable joi-cloudflare.service
-  sudo -n mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
-  sudo -n systemctl daemon-reload
-  sudo -n systemctl start joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
+  sudo mv /tmp/joi.service /etc/systemd/system/joi.service
+  sudo mv /tmp/joi-cloudflare.env /etc/default/joi-cloudflare
+  sudo systemctl daemon-reload
+  sudo systemctl enable joi.service
+  sudo systemctl enable joi-cloudflare.service
+  sudo mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
+  sudo systemctl daemon-reload
+  sudo systemctl start joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
 
   # Старт/перезапуск сервиса
   if systemctl is-active --quiet joi.service; then
-    sudo -n systemctl restart joi.service || echo "⚠️ Не удалось перезапустить joi.service"
+    sudo systemctl restart joi.service || echo "⚠️ Не удалось перезапустить joi.service"
   else
-    sudo -n systemctl start joi.service || echo "⚠️ Не удалось запустить joi.service"
+    sudo systemctl start joi.service || echo "⚠️ Не удалось запустить joi.service"
   fi
 EOF
 
