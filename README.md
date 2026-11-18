@@ -117,6 +117,7 @@
 На машине разработки:
 cd /home/grebenkine/Downloads/Joi
 make deploy-prod
+Это отправит все изменения с локального репо в github и оттуда на сервер и запустит скрипты сборки
 
 Проверка статуса:
 ssh grebenkine@192.168.0.78 "systemctl status joi.service"
