@@ -1,5 +1,5 @@
-tunnel: 2a642745-45ca-4422-849d-d368b0a167eb
-credentials-file: /home/grebenkine/.cloudflared/2a642745-45ca-4422-849d-d368b0a167eb.json
+tunnel: 49c23147-40df-4551-ac5b-19ee47baeec3
+credentials-file: /home/grebenkine/.cloudflared/49c23147-40df-4551-ac5b-19ee47baeec3.json
 
 ingress:
   - hostname: joi.zen-link.ru
