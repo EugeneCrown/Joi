@@ -35,6 +35,10 @@ ssh -t grebenkine@192.168.0.78 <<'EOF'
   sudo systemctl enable joi-cloudflare.service
   sudo mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
   sudo systemctl daemon-reload
+  # Копируем конфигурацию Cloudflare Tunnel с правилами ingress
+  cp scripts/joi-cloudflare.yml /tmp/joi-cloudflare.yml
+  sudo mkdir -p /etc/cloudflared
+  sudo mv /tmp/joi-cloudflare.yml /etc/cloudflared/config.yml
   sudo systemctl restart joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
 
   # Старт/перезапуск сервиса
