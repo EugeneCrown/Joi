@@ -5,8 +5,8 @@ app = FastAPI()
 
 @app.head("/")
 def head_root():
-    """Возвращает только заголовки для HEAD‑запросов."""
-    return Response(status_code=200)
+    """Возвращает только заголовки для HEAD‑запросов, включая статус работы сервера."""
+    return Response(status_code=200, headers={"X-Joi-Status": "Joi works"})
 
 
 @app.get("/")
