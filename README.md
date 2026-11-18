@@ -111,3 +111,20 @@
 
 ---
 *Проект поддерживается автоматически через CI (GitHub Actions) и развертывается на сервере (`/home/grebenkine/Joi`).*
+
+
+## Команды
+На машине разработки:
+cd /home/grebenkine/Downloads/Joi
+make deploy-prod
+
+Проверка статуса:
+ssh grebenkine@192.168.0.78 "systemctl status joi.service"
+
+Проверка доступности сервиса:
+curl http://192.168.0.78:8000/
+Ожидаемый ответ:
+{"message":"Joi server works"}
+
+Проверка логов:
+ssh grebenkine@192.168.0.78 "journalctl -u joi.service -b"
