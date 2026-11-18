@@ -25,13 +25,13 @@ ssh grebenkine@192.168.0.78 <<'EOF'
   # Копируем юнит‑файл в /tmp (без sudo)
   cp scripts/joi.service /tmp/joi.service
   cp scripts/joi-cloudflare.service /tmp/joi-cloudflare.service
-      cp scripts/joi-cloudflare.service /tmp/joi-cloudflare.service
+
   # Перемещаем в системный каталог и перезагружаем systemd (sudo‑команды, уже разрешённые без пароля)
-  sudo mv /tmp/joi.service /etc/systemd/system/joi.service
-  sudo systemctl daemon-reload
-  sudo systemctl enable joi.service
-  sudo systemctl enable joi-cloudflare.service
-  sudo mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
+  sudo -n mv /tmp/joi.service /etc/systemd/system/joi.service
+  sudo -n systemctl daemon-reload
+	  sudo -n systemctl enable joi.service
+  sudo -n systemctl enable joi-cloudflare.service
+  sudo -n mv /tmp/joi-cloudflare.service /etc/systemd/system/joi-cloudflare.service
   sudo systemctl daemon-reload
   sudo systemctl start joi-cloudflare.service || echo "⚠️ Не удалось запустить cloudflared tunnel"
   # Старт/перезапуск сервиса
