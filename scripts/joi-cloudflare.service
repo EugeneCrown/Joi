@@ -4,6 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+EnvironmentFile=/etc/default/joi-cloudflare
 # CLOUDFLARED_TUNNEL_ID – UUID туннеля, задаётся в переменной окружения (например, в /etc/default/joi-cloudflare)
 ExecStart=/usr/local/bin/cloudflared tunnel run ${CLOUDFLARED_TUNNEL_ID} \
           --config /home/grebenkine/Joi/cloudflare/tunnel.yml
