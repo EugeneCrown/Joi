@@ -13,7 +13,7 @@ git push prod main
 
 # Пост‑деплой на сервере
 echo "🔧 Выполняем пост‑деплой на сервере..."
-ssh grebenkine@192.168.0.78 <<'EOF'
+ssh -t grebenkine@192.168.0.78 <<'EOF'
   cd /home/grebenkine/Joi
   # Создаём/обновляем виртуальное окружение и зависимости
   if [ -d ".venv" ]; then
